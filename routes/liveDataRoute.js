@@ -23,7 +23,11 @@ router.post("/getDataMonthAgo", (req, res) => {
   d.setHours(0, 0, 0);
   d.setMilliseconds(0);
 
-  findRecordOneMonthAgo((d / 1000) | 0, req.body.exchange)
+  findRecordOneMonthAgo(
+    (d / 1000) | 0,
+    req.body.exchange,
+    req.body.trading_pair
+  )
     .then(result => {
       res.status(200).json({ data: result, lastMonth: (d / 1000) | 0 });
     })
@@ -37,7 +41,11 @@ router.post("/getDataByWeek", (req, res) => {
   d.setHours(d.getHours() - 168);
   d.setMilliseconds(0);
 
-  findRecordOneMonthAgo((d / 1000) | 0, req.body.exchange)
+  findRecordOneMonthAgo(
+    (d / 1000) | 0,
+    req.body.exchange,
+    req.body.trading_pair
+  )
     .then(result => {
       res.status(200).json({ data: result, lastWeek: (d / 1000) | 0 });
     })
@@ -51,7 +59,11 @@ router.post("/getDataByDay", (req, res) => {
   d.setHours(d.getHours() - 24);
   d.setMilliseconds(0);
 
-  findRecordOneMonthAgo((d / 1000) | 0, req.body.exchange)
+  findRecordOneMonthAgo(
+    (d / 1000) | 0,
+    req.body.exchange,
+    req.body.trading_pair
+  )
     .then(result => {
       res.status(200).json({ data: result, "24_hours_ago": (d / 1000) | 0 });
     })
