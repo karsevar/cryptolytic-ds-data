@@ -16,7 +16,7 @@ router.post("/getExchangeData", (req, res) => {
     });
 });
 
-router.post("/getDataMonthAgo", (req, res) => {
+router.post("/getDataByMonth", (req, res) => {
   var d = new Date();
   d.setMonth(d.getMonth() - 1);
 
