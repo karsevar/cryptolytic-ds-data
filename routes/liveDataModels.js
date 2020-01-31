@@ -3,7 +3,9 @@ const dataScienceDb = require("../data/dbConfig.js");
 module.exports = {
   findRecordByExchange,
   findRecordOneMonthAgo,
-  findRecordByExchangeAndPeriod
+  findRecordByExchangeAndPeriod,
+  findArbitrage,
+  findTrade
 };
 
 function findRecordByExchange(filter) {
@@ -25,4 +27,12 @@ function findRecordByExchangeAndPeriod(exchange, period) {
     .where({ exchange })
     .where({ period })
     .limit(200);
+}
+
+function findArbitrage() {
+  return dataScienceDb("predictions").where({ model_type: "trade" });
+}
+
+function findTrade() {
+  return dataScienceDb("predictions").where({ model_type: "arbitrage" });
 }

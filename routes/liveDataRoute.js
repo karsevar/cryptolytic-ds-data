@@ -2,7 +2,9 @@ const express = require("express");
 const {
   findRecordByExchange,
   findRecordOneMonthAgo,
-  findRecordByExchangeAndPeriod
+  findRecordByExchangeAndPeriod,
+  findArbitrage,
+  findTrade
 } = require("./liveDataModels.js");
 
 const router = express.Router();
@@ -120,6 +122,31 @@ router.post("/getDataByDay", (req, res) => {
     })
     .catch(error => {
       res.status(500).json({ message: "query didnt work", err: error });
+    });
+});
+
+router.get("/getTradePredictions", (req, res) => {
+  findTrade()
+    .then(result => {
+      res.status(200).json({
+        data: result,
+        message: "Trading prediction call was a success"
+      });
+    })
+    .catch(error => {
+      res.status(500).json({ message: error });
+    });
+});
+
+router.get("/getArbitragePredictions", (req, res) => {
+  findArbitrage()
+    .then(results => {
+      res
+        .status(200)
+        .json({ data: results, message: "find arbitrage endpoint success" });
+    })
+    .catch(error => {
+      res.status(500).json({ message: error });
     });
 });
 
