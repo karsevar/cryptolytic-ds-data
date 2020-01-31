@@ -29,10 +29,10 @@ function findRecordByExchangeAndPeriod(exchange, period) {
     .limit(200);
 }
 
-function findArbitrage() {
+function findTrade() {
   return dataScienceDb("predictions").where({ model_type: "trade" });
 }
 
-function findTrade() {
+function findArbitrage() {
   return dataScienceDb("predictions").where({ model_type: "arbitrage" });
 }
