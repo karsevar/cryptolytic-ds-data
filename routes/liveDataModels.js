@@ -5,7 +5,8 @@ module.exports = {
   findRecordOneMonthAgo,
   findRecordByExchangeAndPeriod,
   findArbitrage,
-  findTrade
+  findTrade,
+  findTradeUpDown
 };
 
 function findRecordByExchange(filter) {
@@ -35,4 +36,10 @@ function findTrade() {
 
 function findArbitrage() {
   return dataScienceDb("predictions").where({ model_type: "arbitrage" });
+}
+
+function findTradeUpDown() {
+  return dataScienceDb("predictions")
+    .where({ model_type: "trade" })
+    .whereNot("prediction", "=", "0.0");
 }

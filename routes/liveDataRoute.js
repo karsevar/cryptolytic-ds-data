@@ -4,7 +4,8 @@ const {
   findRecordOneMonthAgo,
   findRecordByExchangeAndPeriod,
   findArbitrage,
-  findTrade
+  findTrade,
+  findTradeUpDown
 } = require("./liveDataModels.js");
 
 const router = express.Router();
@@ -138,6 +139,24 @@ router.get("/getTradePredictions", (req, res) => {
         data: newArray,
         message: "Trading prediction call was a success"
       });
+    })
+    .catch(error => {
+      res.status(500).json({ message: error });
+    });
+});
+
+router.get("/getTradePredictionsClean", (req, res) => {
+  findTradeUpDown()
+    .then(results => {
+      let newArray = results.map(trade => {
+        var date = new Date(trade.timestamp * 1000);
+
+        return { ...trade, timestamp: date };
+      });
+
+      res
+        .status(200)
+        .json({ data: newArray, message: "find arbitrage endpoint success" });
     })
     .catch(error => {
       res.status(500).json({ message: error });
