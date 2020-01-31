@@ -128,8 +128,14 @@ router.post("/getDataByDay", (req, res) => {
 router.get("/getTradePredictions", (req, res) => {
   findTrade()
     .then(result => {
+      let newArray = result.map(trade => {
+        var date = new Date(trade.timestamp * 1000);
+
+        return { ...trade, timestamp: date };
+      });
+
       res.status(200).json({
-        data: result,
+        data: newArray,
         message: "Trading prediction call was a success"
       });
     })
@@ -141,9 +147,15 @@ router.get("/getTradePredictions", (req, res) => {
 router.get("/getArbitragePredictions", (req, res) => {
   findArbitrage()
     .then(results => {
+      let newArray = results.map(trade => {
+        var date = new Date(trade.timestamp * 1000);
+
+        return { ...trade, timestamp: date };
+      });
+
       res
         .status(200)
-        .json({ data: results, message: "find arbitrage endpoint success" });
+        .json({ data: newArray, message: "find arbitrage endpoint success" });
     })
     .catch(error => {
       res.status(500).json({ message: error });
