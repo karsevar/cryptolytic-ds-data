@@ -130,7 +130,7 @@ router.get("/getTradePredictions", (req, res) => {
   findTrade()
     .then(result => {
       let newArray = result.map(trade => {
-        var date = new Date(trade.timestamp * 1000);
+        var date = trade.timestamp * 1000;
 
         return { ...trade, timestamp: date };
       });
@@ -149,7 +149,7 @@ router.get("/getTradePredictionsClean", (req, res) => {
   findTradeUpDown()
     .then(results => {
       let newArray = results.map(trade => {
-        var date = new Date(trade.timestamp * 1000);
+        var date = trade.timestamp * 1000;
 
         return { ...trade, timestamp: date };
       });
