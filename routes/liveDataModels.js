@@ -31,9 +31,7 @@ function findRecordByExchangeAndPeriod(exchange, period) {
 }
 
 function findTrade() {
-  return dataScienceDb("predictions")
-    .where({ model_type: "trade" })
-    .limit(20);
+  return dataScienceDb("predictions").where({ model_type: "trade" });
 }
 
 function findArbitrage() {
@@ -43,5 +41,6 @@ function findArbitrage() {
 function findTradeUpDown() {
   return dataScienceDb("predictions")
     .where({ model_type: "trade" })
-    .whereNot("prediction", "=", "0.0");
+    .whereNot("prediction", "=", "0.0")
+    .limit(20);
 }
