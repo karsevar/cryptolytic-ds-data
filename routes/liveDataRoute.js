@@ -148,6 +148,8 @@ router.get("/getTradePredictions", (req, res) => {
 router.get("/getTradePredictionsClean", (req, res) => {
   findTradeUpDown()
     .then(results => {
+      var d = new Date();
+      console.log(d);
       let newArray = results.map(trade => {
         var date = trade.timestamp * 1000;
 
