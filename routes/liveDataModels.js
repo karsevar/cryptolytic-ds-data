@@ -41,6 +41,5 @@ function findArbitrage() {
 function findTradeUpDown() {
   return dataScienceDb("predictions")
     .where({ model_type: "trade" })
-    .whereNot("prediction", "=", "0.0")
-    .limit(20);
+    .whereNot("prediction", "=", "0.0");
 }

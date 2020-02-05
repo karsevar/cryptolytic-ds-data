@@ -149,12 +149,10 @@ router.get("/getTradePredictionsClean", (req, res) => {
   findTradeUpDown()
     .then(results => {
       var d = new Date();
-      console.log(d);
-      let newArray = results.map(trade => {
-        var date = trade.timestamp * 1000;
-
-        return { ...trade, timestamp: date };
-      });
+      d.setHours(d.getHours() - 36);
+      unixTime = d.getTime() / 1000;
+      console.log(unixTime);
+      let newArray = results.filter(trade => trade.timestamp >= unixTime);
 
       res
         .status(200)
