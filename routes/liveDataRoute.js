@@ -149,14 +149,21 @@ router.get("/getTradePredictionsClean", (req, res) => {
   findTradeUpDown()
     .then(results => {
       var d = new Date();
-      d.setHours(d.getHours() - 36);
+      d.setHours(d.getHours() - 24);
       unixTime = d.getTime() / 1000;
+
       console.log(unixTime);
       let newArray = results.filter(trade => trade.timestamp >= unixTime);
 
+      let newArray2 = newArray.map(trade => {
+        var date = trade.timestamp * 1000;
+
+        return { ...trade, timestamp: date };
+      });
+
       res
         .status(200)
-        .json({ data: newArray, message: "find arbitrage endpoint success" });
+        .json({ data: newArray2, message: "find arbitrage endpoint success" });
     })
     .catch(error => {
       res.status(500).json({ message: error });
